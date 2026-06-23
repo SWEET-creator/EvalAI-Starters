@@ -132,7 +132,7 @@ jobs:
       - name: Checkout challenge branch
         uses: actions/checkout@v3
         with:
-          ref: challenge
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python (GitHub-hosted only)
         if: needs.validate-host-config.outputs.requires_self_hosted != 'true'
