@@ -281,17 +281,30 @@ def evaluate(test_annotation_file, user_annotation_file, phase_name, **kwargs):
         benchmark_root = _resolve_benchmark_root(test_annotation_file)
         submission_root, tmp_dir = _prepare_submission_root(user_annotation_file)
         metrics = _evaluate_dataset(benchmark_root, submission_root)
+        frame_coverage = (
+            metrics["frames_evaluated"] / metrics["frames_total"]
+            if metrics["frames_total"]
+            else 0.0
+        )
+        leaderboard_metrics = {
+            "Metric1": metrics["segment_accuracy"],
+            "Metric2": metrics["palette_miou"],
+            "Metric3": frame_coverage,
+            "Total": metrics["score"],
+        }
 
-        result = {
-            "result": [
-                {
-                    "split1": {
-                        "score": metrics["score"],
-                        "segment_accuracy": metrics["segment_accuracy"],
-                        "palette_miou": metrics["palette_miou"],
-                    }
-                }
-            ],
+        if phase_name == "dev":
+            result = [{"train_split": leaderboard_metrics}]
+            submission_result = leaderboard_metrics
+        else:
+            result = [
+                {"train_split": leaderboard_metrics},
+                {"test_split": leaderboard_metrics},
+            ]
+            submission_result = result[0]
+
+        return {
+            "result": result,
             "submission_metadata": {
                 "phase_name": phase_name,
                 "benchmark_root": str(benchmark_root),
@@ -308,7 +321,6 @@ def evaluate(test_annotation_file, user_annotation_file, phase_name, **kwargs):
                 f"frames={metrics['frames_evaluated']}/{metrics['frames_total']}"
             ),
         }
-        return result
     except Exception as e:
         sys.stderr.write(traceback.format_exc())
         return e

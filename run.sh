@@ -30,7 +30,7 @@ with ZipFile("evaluation_script.zip", "w", ZIP_DEFLATED) as zf:
         add_file(zf, path, Path(path).relative_to("evaluation_script"))
 
 with ZipFile("challenge_config.zip", "w", ZIP_DEFLATED) as zf:
-    for path in ["challenge_config.yaml", "evaluation_script.zip", "logo.png", "submission.json"]:
+    for path in ["challenge_config.yaml", "evaluation_script.zip", "logo.jpg", "submission.json"]:
         add_file(zf, path)
     for root in ["annotations", "templates"]:
         add_tree(zf, root)
