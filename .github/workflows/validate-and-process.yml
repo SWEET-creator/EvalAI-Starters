@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   validate-host-config:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       is_valid: ${{ steps.validate.outputs.is_valid }}
       is_localhost: ${{ steps.validate.outputs.is_localhost }}
