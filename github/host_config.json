@@ -1,5 +1,5 @@
 {
 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTgxMzY4OTcyMiwianRpIjoiYzc3NWNmOTlhMWY3NDk0NmFjNjk3NTZhNmFmMGQ3NmMiLCJ1c2VyX2lkIjoyfQ.ofrLsjDQxDRiK2YNOkJWsUQqbAGmzhPLQ3QNSDWIckA",
 	"team_pk": "1",
-	"evalai_host_url": "http://host.docker.internal:8000"
+	"evalai_host_url": "http://172.17.0.1:8000"
 }
