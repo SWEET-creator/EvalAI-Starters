@@ -125,7 +125,7 @@ jobs:
       always() && 
       needs.validate-host-config.outputs.is_valid == 'true' &&
       (needs.check-self-hosted-requirements.result == 'success' || needs.check-self-hosted-requirements.result == 'skipped')
-    runs-on: ${{ needs.validate-host-config.outputs.requires_self_hosted == 'true' && 'self-hosted' || 'ubuntu-latest' }}
+    runs-on: self-hosted
     
     steps:
       - name: Checkout challenge branch
