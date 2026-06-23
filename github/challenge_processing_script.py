@@ -23,6 +23,11 @@ sys.dont_write_bytecode = True
 
 GITHUB_CONTEXT = json.loads(os.getenv("GITHUB_CONTEXT", "{}"))
 GITHUB_AUTH_TOKEN = os.getenv("GITHUB_AUTH_TOKEN")
+GITHUB_BRANCH = (
+    os.getenv("GITHUB_REF_NAME")
+    or os.getenv("GITHUB_HEAD_REF")
+    or os.getenv("GITHUB_REF", "").split("/")[-1]
+)
 if not GITHUB_AUTH_TOKEN:
     print(
         "Please add your github access token to the repository secrets with the name AUTH_TOKEN"
@@ -118,7 +123,10 @@ if __name__ == "__main__":
     zip_file = open(CHALLENGE_ZIP_FILE_PATH, "rb")
     file = {"zip_configuration": zip_file}
 
-    data = {"GITHUB_REPOSITORY": GITHUB_REPOSITORY}
+    data = {
+        "GITHUB_REPOSITORY": GITHUB_REPOSITORY,
+        "GITHUB_BRANCH": GITHUB_BRANCH,
+    }
 
     # Configure SSL verification based on whether we're using localhost
     verify_ssl = not is_localhost

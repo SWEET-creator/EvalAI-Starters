@@ -1,1 +1,5 @@
-<p>Submit any blank file here to see a random number generated for your submission. If you get lucky, you might reach the top of the leaderboard.</p>
+<p>Submit a JSON file with a Docker image URI:</p>
+<pre>{
+  "submitted_image_uri": "registry.example.com/anime-colorization-submission:latest"
+}</pre>
+<p>The container must read the mounted dataset from <code>/dataset</code> and write predictions to <code>/submission/submission.json</code>.</p>
